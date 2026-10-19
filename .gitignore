@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+display-backup/
+original-flash.bin
+original-uicr.bin
+*priv.pem
+reproduced.hex

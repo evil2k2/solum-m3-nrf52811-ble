@@ -1,0 +1,28 @@
+--- a/EPD/SSD16xx.c
++++ b/EPD/SSD16xx.c
+@@ -31,6 +31,7 @@
+ 
+ static bool SSD16xx_YIncrease(epd_model_t* epd) {
+     switch (epd->id) {
++        case SSD1619_029_BW:  case SSD1619_029_BWR:
+         case SSD1619_016_BW:  case SSD1619_016_BWR:
+         case SSD1619_013_BW:  case SSD1619_013_BWR:
+         case SSD1619_022_LITE_BW:  case SSD1619_022_LITE_BWR:
+@@ -70,7 +71,7 @@
+     EPD_Write(SSD16xx_GDO_CTR, epd->height & 0xFF, epd->height >> 8, 0x00);
+     EPD_Write(SSD16xx_BORDER_CTRL, 0x05);
+     EPD_Write(SSD16xx_TSENSOR_CTRL, 0x80);
+-    uint8_t ctrl1 = epd->color == COLOR_BWR ? 0x08 : 0x48;
++    uint8_t ctrl1 = epd->color == COLOR_BWR ? 0x80 : 0x48;
+     if (epd->id == SSD1619_013_BW || epd->id == SSD1619_013_BWR) ctrl1 |= 0x80;
+     EPD_Write(SSD16xx_DISP_CTRL1, ctrl1, 0x00);
+ 
+@@ -80,7 +81,7 @@
+ static void SSD16xx_Refresh(epd_model_t* epd) {
+     EPD_DEBUG("refresh begin");
+     EPD_DEBUG("temperature: %d", SSD16xx_ReadTemp(epd));
+-    uint8_t ctrl1 = epd->color == COLOR_BWR ? 0x08 : 0x48;
++    uint8_t ctrl1 = epd->color == COLOR_BWR ? 0x80 : 0x48;
+     if (epd->id == SSD1619_013_BW || epd->id == SSD1619_013_BWR) ctrl1 |= 0x80;
+     EPD_Write(SSD16xx_DISP_CTRL1, ctrl1, 0x00);
+     SSD16xx_Update(0xF7);
